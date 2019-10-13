@@ -12,6 +12,7 @@ public class AccountConfiguration {
 	@Bean
 	public AlwaysSampler defaultSampler() {
 	  return new AlwaysSampler();
+	  
 	}
 	
 }
