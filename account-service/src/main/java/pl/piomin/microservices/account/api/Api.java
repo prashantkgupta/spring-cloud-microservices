@@ -4,8 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.ServletContext;
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,11 +34,22 @@ public class Api {
 		accounts.add(new Account(7, 2, "777777"));
 	}
 	
+	@Autowired
+	ServletContext context;
+	
+	@Autowired
+	HttpServletRequest request;
+	
 	@RequestMapping("/accounts/{number}")
 	public Account findByNumber(@PathVariable("number") String number) {
 		logger.info(String.format("Account.findByNumber(%s)", number));
 		Account a = accounts.stream().filter(it -> it.getNumber().equals(number)).findFirst().get();
 		logger.info(String.format("Account.findByNumber: %s", a));
+      //  RequestContext ctx = RequestContext.getCurrentContext();
+       // HttpServletRequest request = ctx.getRequest();
+		logger.info(String.format("Hello Attribute Value::", context.getAttribute("Hello")));
+		logger.info(String.format("Token::", request.getHeader("Token")));
+		
 		return a;
 	}
 	

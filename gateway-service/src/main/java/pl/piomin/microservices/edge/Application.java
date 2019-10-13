@@ -16,6 +16,11 @@ public class Application {
 		new SpringApplicationBuilder(Application.class).web(true).run(args);
 	}
 
+    @Bean
+    public PreFilter preFilter() {
+        return new PreFilter();
+    }
+    
 	@Bean
 	public AlwaysSampler defaultSampler() {
 	  return new AlwaysSampler();
